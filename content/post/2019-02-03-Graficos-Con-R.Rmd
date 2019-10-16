@@ -1,0 +1,12 @@
+---
+title: Paquetes y funciones útiles para generar gráficos en R
+author: ''
+date: '2019-01-26'
+slug: ''
+categories: []
+tags: []
+image:
+  caption: ''
+  focal_point: ''
+---
+# [(Paquetes y funciones útiles para generar gráficos en R)](/post/Graficos-con-R.html#1/)

@@ -1,0 +1,32 @@
+---
+title: Introducción a R Markdown
+author: Ing. Eduardo Guamán
+date: '2019-01-01'
+tags:
+  - RMarkdown
+  - RStats
+  - RStatsEs
+output: blogdown::html_page
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Descripción:
+
+### Visión general
+
+R Markdown proporciona un marco de autoría para la ciencia de datos. Puedes usar un solo archivo R Markdown para ambos
+
+- guardar y ejecutar código
+- generar informes de alta calidad que se pueden compartir con una audiencia
+
+Los documentos R Markdown son completamente reproducibles y admiten docenas de formatos de salida estáticos y dinámicos [(ver DIAPOSITIVAS)](/slides/RMarkdown-Introduction.html#1/) o [(ver PDF)](/files/RMarkdown-Introduction.pdf).
+
+## Contacto:
+
+* Correo: 
+    * guamandseduardo@gmail.com
+* Twitter:
+    * [guamandseduardo](https://twitter.com/guamandseduardo)  

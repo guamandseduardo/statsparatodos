@@ -1,0 +1,220 @@
+---
+title: Los bucles de la familia apply
+author: 'Eduardo Guamán'
+date: '`r Sys.Date()`'
+slug: ''
+categories: []
+tags: ["Familia apply"]
+image:
+  caption: ''
+  focal_point: ''
+bibliography: bibliografia.bib
+---
+
+# apply
+
+La función __apply()__ pertenece al paquete base R y aplica una función a una matriz, lista o vector que se le pase como parámetro.
+
+La documentación (ejecuta _?apply_) de la base R dice que se llama de la siguiente manera: ___apply(X, MARGIN, FUN, ...)___
+
+donde:
+
+* Argumento 1: matriz, lista o vector
+* Argumento 2: 1 para operar sobre las columnas y 2 sobre las filas, c(1, 2) indica filas y columnas
+* Argumento 3: la función a aplicar según indique el argumento 2
+* ...: argumentos opcionales a ___FUN___.
+
+Por ejemplo, si queremos saber la media de cada fila de una matriz de 100 filas y 10 columnas:
+
+```{r apply media_filas}
+
+myMat <- matrix(sample(1:100, size = 1000, replace = TRUE), ncol = 10)
+apply(X = myMat, MARGIN = 1, FUN = mean)
+
+```
+
+Si queremos saber la media de cada columna, la expresión anterior se convierte en:
+
+```{r apply media_columnas}
+
+apply(X = myMat, MARGIN = 2, FUN = mean)
+
+```
+
+# lapply
+
+Es usada cuando se desea aplicar una función determinada a cada elemento de una lista y obtener una lista como resultado. Al ejecutar _?lapply_, la sintaxis se parece a la función __apply()__.
+
+La diferencia es que:
+
+1. Puede ser usado para otros objetos como dataframes, listas o vectores; y
+2. Devuelve una lista de la misma longitud que ___X___, y cada elemento resulta de la aplicación ___FUN___ al elemento ___X___ correspondiente.
+
+Para ver cómo funciona esto, tenenemos el siguiente ejemplo:
+
+```{r lapply_myList}
+
+set.seed(12345)
+(myList <- list(
+  a = sample(1:100, size = 10),
+  b = sample(1:100, size = 10),
+  c = sample(1:100, size = 10),
+  d = sample(1:100, size = 10),
+  e = sample(1:100, size = 10)
+  ))
+
+```
+
+Para obtener el promedio de cada elemento de la ___list___:
+
+```{r lapply_media}
+
+lapply(myList, FUN = mean)
+
+```
+
+# sapply
+
+La función __sapply()__ es una versión modificada de la función __lapply()__ que realiza la misma operación pero intenta simplificar la salida a la estructura de datos más elemental siempre que sea posible.
+
+Por ejemplo digamos que se desea repetir la operación de calcular la media del ejemplo anterior:
+
+```{r sapply_media}
+
+sapply(myList, FUN = mean)
+
+```
+
+Extraer el elemento “n” (en este caso el primer elemento) de cada elemento de una ___list___. La función que se llama para hacer esto es __'[['__.
+
+```{r sapply_extraer}
+
+sapply(myList, FUN = '[[', 1)
+
+```
+
+# tapply
+
+La función __tapply()__ permite aplicar una función tomando como elemento para iterar una variable existente, es decir realiza una operación (parámetro 3) respecto a un vector (parámetro 1) agrupada por los factores que se indiquen como argumento (parámetro 2).
+
+Para este ejemplo se usa la base de datos _iris_ para obtener fácilmente un resumen de las mediciones de Sepal.Length para cada Species con la función __tapply()__ y la función __summary()__
+
+```{r tapply_summary}
+data("iris")
+tapply(iris$Sepal.Length, iris$Species, summary)
+
+```
+
+# mapply
+
+La función __mapply()__ significa apply "multivariante", que aplica una función a múltiples listas o múltiples argumentos vectoriales.
+
+Por ejemplo, para crear una matriz 4x4 se puede crear normalmente con la función __matrix()__ y la función __rep()__ repetidamente:
+
+```{r mapply 001}
+
+matrix(c(rep(1, 4), rep(2, 4), rep(3, 4), rep(4, 4)),4,4)
+
+```
+
+Ahora usando la función __mapply()__  y la función __rep()__ repetidamente:
+
+```{r mapply 002}
+
+mapply(rep, 1:4, 4)
+
+```
+
+
+Si tenemos tres matrices __x__, __y__ y __z__ para obtener la suma entre cada uno de los elementos de las matrices se puede usar la función __mapply()__:
+
+```{r mapply 003}
+
+x <- matrix(1:9,3,3)
+y <- matrix(11:19,3,3)
+z <- matrix(21:29,3,3)
+mapply(sum, x, y, z)
+
+```
+
+# vapply
+
+Devuelve un vector con la longitud que tiene cada una de las listas introducidas como parámetro.
+
+```{r vapply 001}
+
+(x <- list(A = 1, B = 1:3, C = 1:7))
+vapply(x, FUN = length, FUN.VALUE = 0L)
+
+```
+
+# rapply
+
+__rapply()__ se utiliza cuando queremos aplicar una función a cada elemento de un objeto con estructura de lista anidada (una lista dentro de una lista), de manera recursiva [@MaximaFormacion].
+
+# Funciones relacionadas con apply()
+
+En ocasiones se utilizan funciones estructuradas de forma similar junto con el elemento de la familia __apply()__, a continuación se presenta una visión general de algunas de ellas.
+
+## sweep
+
+La función __sweep()__ se utiliza cuando se desea duplicar diferentes acciones sobre los elementos __MARGIN__ que se han elegido (limitándose aquí al caso de la matriz).
+
+Supongamos que tiene un conjunto de datos. Primero se encuentran las medias y la dispersión o desviación estándar por columna con la ayuda de la función `apply()`. Luego se centra los todos los datos con respecto a su centro (cada dato original menos la media). Finamente los datos centrados se utilizará para normalizar con respecto a su desviación estándar (dato original menos la media dividido para la desviación estándar del dato original) [@Fanara2016]:
+
+```{r sweep}
+
+data <- matrix(c(seq(4, 7), seq(8, 11), seq(12, 15)), 4, 3)
+# Calcular la media por columna con `apply()`
+data.media <- apply(data, 2, mean)
+# Encuentrar la desviación estándar con `apply()`
+data.sd <- apply(data, 2, sd)
+# Centrar los datos
+(data.centrado <- sweep(data, 2, data.media, "-"))
+# Normalizar los datos
+(data.norm <- sweep(data.centrado, 2, data.sd, "/"))
+
+```
+
+Esta función __sweep()__ espera los siguientes parámetros:
+
+* Un __x__: una matriz de entrada;
+* Un __MARGIN__, __2__ para indicar las columnas;
+* Un __STATS__, resumen de estadísticas (aquí __mean__); y
+* __FUN__, una función a aplicar. En este caso se usa el operador aritmético __"-"__ para la resta.
+
+## aggregate
+
+Esta función está contenida en el paquete base __stats__ y la utilizas así: __aggregate(x, by, FUN, ..., simplify = TRUE)__.
+
+Funciona de manera similar a la función __apply()__: se especifica el objeto, la función y dice si desea simplificar, al igual que con la función __sapply()__. La diferencia clave es el uso de la cláusula ___by___, que establece la variable o el campo de marco de datos mediante el cual queremos realizar la agregación.
+
+
+
+Usando la base de datos _iris_ se obtiene el promedio de las mediciones de Sepal.Length para cada Species:
+
+```{r aggregate}
+
+data("iris")
+aggregate(iris$Sepal.Length, by = iris["Species"], FUN = mean)
+
+```
+
+
+## by
+
+Similar a la función __tapply()__, pero __by()__ funciona también cuando el tamaño de los 2 primeros argumentos son distintos, por ejemplo:
+
+```{r by}
+data("iris")
+by(iris[1:4], iris$Species, summary)
+
+```
+
+## Otras funciones
+
+* ddplyr() del paquete [{plyr}](https://cran.r-project.org/web/packages/plyr/index.html)
+* summaryBy() del paquete [{doBy}](https://cran.r-project.org/web/packages/doBy/index.html)
+* summarize() en el paquete [{Hmisc}](https://cran.r-project.org/web/packages/Hmisc/index.html)
+
+# Bibliografía {-}

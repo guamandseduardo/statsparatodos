@@ -1,0 +1,11 @@
+http://faestadistica.rbind.io/*    https://faestadistica.rbind.io/:splat  301!
+http://fedatascience.rbind.io/*    https://faestadistica.rbind.io/:splat  301!
+<<<<<<< HEAD
+<<<<<<< HEAD
+https://fedatascience.rbind.io/*    https://faestadistica.rbind.io/:splat  301!
+=======
+https://fedatascience.rbind.io/*    https://faestadistica.rbind.io/:splat  301!
+>>>>>>> actualizando sitio web
+=======
+https://fedatascience.rbind.io/*    https://faestadistica.rbind.io/:splat  301!
+>>>>>>> master
