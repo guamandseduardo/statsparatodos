@@ -112,7 +112,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
   identifier = "facebook"
   name = "Facebook"
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-facebook\"></i>"
-  url = "https://www.facebook.com/faestadistica/"
+  url = "https://www.facebook.com/statsparatodos/"
   
 #[[menu.links]]
 #  weight = 5
