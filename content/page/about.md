@@ -24,7 +24,7 @@ Intereses:
 <center>
 [Asesoría Estadística](https://faestadistica.rbind.io/asesor%C3%ADa-estad%C3%ADstica/)
 <div style="width:30%">
-![Image](/img/statsparatodosec.jpg)
+![Image](/img/statsparatodoec.png)
 </div>
  [Estadística para Todos EC](https://www.facebook.com/statsparatodos/)
 </center>

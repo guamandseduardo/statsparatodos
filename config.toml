@@ -13,8 +13,8 @@
 # use grunt task `build` to synchronize assets
 
 baseURL = "https://statsparatodos.rbind.io/"
-languageCode = "es-ec"
-defaultContentLanguage = "es-ec"
+languageCode = "es-es"
+defaultContentLanguage = "es-es"
 title = "Estadística para Todos EC"
 theme = "hugo-tranquilpeak-theme"
 disqusShortname = "hugo-tranquilpeak-theme"
@@ -135,6 +135,13 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
   pre = "<i class=\"sidebar-button-icon fa fa-lg fa-rss\"></i>"
   url = "/Asesoría Estadística"
 
+[[menu.links]]
+  weight = 6
+  identifier = "whatsapp"
+  name = "WhatsApp"
+  pre = "<i class=\"sidebar-button-icon fa fa-lg fa-whatsapp\"></i>"
+  url = "https://bit.ly/WhatsAppEPT"
+  
 #[[menu.misc]]
 #  weight = 1
 #  identifier = "rss"
@@ -163,7 +170,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown", "_files$", "_cache$"]
   # If false it will flat categories.
   hierarchicalCategories = true
 
-  description = "FE Data Science blog by Eduardo Guamán"
+  description = "Estadística para Todos EC blog by Eduardo Guamán"
 
   # Customization
   # Define the behavior of the sidebar
